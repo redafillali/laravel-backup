@@ -9,7 +9,7 @@ class BackupController
 {
     public function run(Request $request)
     {
-        $type = $request->get('type', 'full');
+        $type = $request->get('type', 'database');
         $path = $request->get('path', config('backup.path'));
 
         BackupManager::backup($type, $path);

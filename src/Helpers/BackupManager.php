@@ -14,6 +14,11 @@ class BackupManager
    */
   public static function backup(string $type, string $path)
   {
+    // Get the timeout value from the config
+    $timeout = config('laravel-backup.timeout', 300); // Default to 300 seconds if not defined
+
+    // Set max execution time to the configured value
+    set_time_limit($timeout);
     // Ensure the backup directory exists
     self::ensureDirectoryExists($path);
 
@@ -46,7 +51,7 @@ class BackupManager
    */
   protected static function backupFiles(string $path)
   {
-    $zipPath = $path . '/files-'.date('H-i-s').'.zip';
+    $zipPath = $path . '/files-' . date('H-i-s') . '.zip';
     $files = base_path(); // Path to the project files
 
     // Create a new ZipArchive instance
@@ -93,7 +98,7 @@ class BackupManager
     $username = config('database.connections.mysql.username');
     $password = config('database.connections.mysql.password');
     $host = config('database.connections.mysql.host');
-    $backupFile = $path . '/database-'.date('H-i-s').'.sql';
+    $backupFile = $path . '/database-' . date('H-i-s') . '.sql';
 
     // Get the list of all tables from the database
     $pdo = DB::connection()->getPdo();
