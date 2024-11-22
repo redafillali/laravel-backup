@@ -8,7 +8,7 @@ class BackupServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/backup.php', 'backup');
+        $this->mergeConfigFrom(__DIR__ . '/config/backup.php', 'backup');
     }
 
     public function boot()
@@ -20,7 +20,7 @@ class BackupServiceProvider extends ServiceProvider
             ]);
 
             $this->publishes([
-                __DIR__ . '/../config/backup.php' => config_path('backup.php'),
+                __DIR__ . '/config/backup.php' => config_path('backup.php'),
             ], 'config');
         }
 
