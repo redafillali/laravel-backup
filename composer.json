@@ -1,0 +1,16 @@
+{
+    "name": "redaelfillali/laravel-backup",
+    "description": "Laravel Bacup solution for shared hosting",
+    "autoload": {
+        "psr-4": {
+            "Redaelfillali\\LaravelBackup\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Reda EL Fillali",
+            "email": "reda.elfillali@gmail.com"
+        }
+    ],
+    "require": {}
+}
