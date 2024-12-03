@@ -98,7 +98,7 @@ class BackupManager
     $username = config('database.connections.mysql.username');
     $password = config('database.connections.mysql.password');
     $host = config('database.connections.mysql.host');
-    $backupFile = $path . '/database-' . date('H-i-s') . '.sql';
+    $backupFile = $path . '/database-' . config('backup_name', date('H-i-s')) . '.sql';
 
     // Get the list of all tables from the database
     $pdo = DB::connection()->getPdo();

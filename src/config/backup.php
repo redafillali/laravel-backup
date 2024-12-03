@@ -37,4 +37,6 @@ return [
 
   // Retry attempts if the backup fails
   'retry_attempts' => 3,
+  // backup name
+  'backup_name' => 'backup-'.date('Y-m-d-H-i-s'),
 ];

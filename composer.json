@@ -2,24 +2,26 @@
   "name": "redaelfillali/laravel-backup",
   "description": "Laravel Backup solution for shared hosting",
   "autoload": {
-      "psr-4": {
-          "Redaelfillali\\LaravelBackup\\": "src/"
-      }
+    "psr-4": {
+      "Redaelfillali\\LaravelBackup\\": "src/"
+    }
   },
   "authors": [
-      {
-          "name": "Reda EL Fillali",
-          "email": "reda.elfillali@gmail.com"
-      }
+    {
+      "name": "Reda EL Fillali",
+      "email": "reda.elfillali@gmail.com"
+    }
   ],
   "require": {
-      "illuminate/support": "^9.0|^10.0|^11.0"
+    "illuminate/support": "^9.0|^10.0|^11.0",
+    "google/apiclient": "^2.18",
+    "league/flysystem": "^3.29"
   },
   "extra": {
-      "laravel": {
-          "providers": [
-              "Redaelfillali\\LaravelBackup\\BackupServiceProvider"
-          ]
-      }
+    "laravel": {
+      "providers": [
+        "Redaelfillali\\LaravelBackup\\BackupServiceProvider"
+      ]
+    }
   }
 }
