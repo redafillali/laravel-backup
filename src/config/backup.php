@@ -2,7 +2,7 @@
 
 return [
   // Define the backup storage path
-  'path' => storage_path('backups').'/'.date('Y-m-d'),
+  'path' => storage_path('backups').'/'.date('Y').'/'.date('m').'/'.date('d'),
 
   // Define the types of backups that can be performed
   'types' => ['full', 'files', 'database'],
@@ -39,4 +39,7 @@ return [
   'retry_attempts' => 3,
   // backup name
   'backup_name' => 'backup-'.date('Y-m-d-H-i-s'),
+
+  // retention period for backups
+  'retention_period' => 7, // 7 days
 ];

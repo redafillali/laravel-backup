@@ -98,7 +98,7 @@ class BackupManager
     $username = config('database.connections.mysql.username');
     $password = config('database.connections.mysql.password');
     $host = config('database.connections.mysql.host');
-    $backupFile = $path . '/database-' . config('backup_name', date('Y-m-d-H-i-s')) . '.sql';
+    $backupFile = $path . '/database-' . config('backup.backup_name', date('Y-m-d-H-i-s')) . '.sql';
 
     // Get the list of all tables from the database
     $pdo = DB::connection()->getPdo();
@@ -127,6 +127,20 @@ class BackupManager
 
     // Save the SQL dump to a file
     File::put($backupFile, $sqlDump);
+
+    // Clear backups older than the retention period (retention_period) in days
+    
+    $files = File::files(storage_path('backups'));
+    $now = time();
+    $retentionPeriod = config('backup.retention_period', 7) * 24 * 60 * 60; // Convert days to seconds
+
+    // delete files and directories older than the retention period
+
+    foreach ($files as $file) {
+      if ($now - $file->getCTime() >= $retentionPeriod) {
+        File::delete($file);
+      }
+    }
 
     return true;
   }
