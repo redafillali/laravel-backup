@@ -35,7 +35,7 @@ After installation, publish the configuration file using the following Artisan c
 php artisan vendor:publish --provider="Redaelfillali\LaravelBackup\BackupServiceProvider"
 ```
 
-This will copy the configuration file to your `config/backup.php` directory, where you can adjust settings such as the backup path, timeout, and retention period.
+This will copy the configuration file to the `config/backup.php` file, where you can adjust settings such as the backup path, timeout, and retention period.
 
 ## Usage
 
