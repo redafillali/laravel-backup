@@ -19,7 +19,7 @@ A simple Laravel package for backing up files and databases with support for dif
 - **No `proc_open` Dependency**: The package works without relying on `proc_open`, ensuring compatibility with restrictive hosting environments.
 - **Command and Controller Support**: Can be used via a console command or integrated into your application with a custom controller and route.
 - **Scheduled Backups**: Utilize Laravel's task scheduling system to automate backups.
-- **Retention Cleanup (limited)**: When running database backups, the package can delete backup files older than a configurable number of days from the root `storage/backups` directory. Subdirectories (such as date-based folders) and custom `backup.path` locations are not cleaned up automatically.
+- **Retention Cleanup**: When running database backups, the package automatically deletes backup files older than a configurable number of days from the configured `backup.path` directory.
 
 ## Installation
 
@@ -148,6 +148,43 @@ Route::post('/backup', function () {
 | `retention_period`     | `7`                              | Days to keep old backups before automatic deletion  |
 | `backup_name`          | `backup-Y-m-d-H-i-s`            | Filename prefix for database backup files           |
 | `enable_notifications` | `true`                           | Enable/disable backup notifications                 |
+
+## Testing
+
+The package includes a full test suite built with [PHPUnit](https://phpunit.de) and [Orchestra Testbench](https://packages.tools/testbench).
+
+### Running the Tests
+
+Install the development dependencies and run the test suite:
+
+```bash
+composer install
+composer test
+```
+
+Or run PHPUnit directly:
+
+```bash
+./vendor/bin/phpunit
+```
+
+### Test Structure
+
+```
+tests/
+├── TestCase.php                       # Base test case (Orchestra Testbench)
+├── Unit/
+│   └── BackupManagerTest.php          # Unit tests for BackupManager
+└── Feature/
+    ├── BackupCommandTest.php          # Feature tests for the Artisan command
+    └── BackupControllerTest.php       # Feature tests for the HTTP routes
+```
+
+| Suite | File | Tests |
+|-------|------|-------|
+| Unit | `BackupManagerTest` | Directory creation, zip validity, no duplicate entries, SQL dump content, PDO quoting, null value handling, dynamic DB connection, retention cleanup, full backup |
+| Feature | `BackupCommandTest` | All backup types, default type, configured path, exception → exit code 1 |
+| Feature | `BackupControllerTest` | All three routes, invalid type → HTTP 422, exception → HTTP 500 |
 
 ## License
 
