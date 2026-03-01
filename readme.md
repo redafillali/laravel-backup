@@ -19,7 +19,7 @@ A simple Laravel package for backing up files and databases with support for dif
 - **No `proc_open` Dependency**: The package works without relying on `proc_open`, ensuring compatibility with restrictive hosting environments.
 - **Command and Controller Support**: Can be used via a console command or integrated into your application with a custom controller and route.
 - **Scheduled Backups**: Utilize Laravel's task scheduling system to automate backups.
-- **Retention Policy**: Automatically removes backup files older than a configurable number of days.
+- **Retention Cleanup (limited)**: When running database backups, the package can delete backup files older than a configurable number of days from the root `storage/backups` directory. Subdirectories (such as date-based folders) and custom `backup.path` locations are not cleaned up automatically.
 
 ## Installation
 
