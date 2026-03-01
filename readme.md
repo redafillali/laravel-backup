@@ -4,8 +4,10 @@ A simple Laravel package for backing up files and databases with support for dif
 
 ## Requirements
 
-- PHP ^8.1
-- Laravel ^10.0 | ^11.0 | ^12.0
+- Laravel: ^10.0 | ^11.0 | ^12.0
+- PHP:
+  - For Laravel 10: ^8.1
+  - For Laravel 11 and 12: ^8.2
 
 ## Features
 
