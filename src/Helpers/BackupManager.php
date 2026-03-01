@@ -15,7 +15,7 @@ class BackupManager
   public static function backup(string $type, string $path)
   {
     // Get the timeout value from the config
-    $timeout = config('laravel-backup.timeout', 300); // Default to 300 seconds if not defined
+    $timeout = config('backup.timeout', 300); // Default to 300 seconds if not defined
 
     // Set max execution time to the configured value
     set_time_limit($timeout);
