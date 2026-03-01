@@ -11,13 +11,19 @@ class BackupCommand extends Command
 
     protected $description = 'Run a backup';
 
-    public function handle()
+    public function handle(): int
     {
         $type = $this->argument('type');
         $path = $this->option('path') ?? config('backup.path');
 
-        BackupManager::backup($type, $path);
+        try {
+            BackupManager::backup($type, $path);
+            $this->info("Backup {$type} completed at {$path}");
+        } catch (\Exception $e) {
+            $this->error("Backup failed: {$e->getMessage()}");
+            return self::FAILURE;
+        }
 
-        $this->info("Backup {$type} completed at {$path}");
+        return self::SUCCESS;
     }
 }
