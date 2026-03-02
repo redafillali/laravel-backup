@@ -2,26 +2,30 @@
 
 namespace Redaelfillali\LaravelBackup\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Redaelfillali\LaravelBackup\Helpers\BackupManager;
 
 class BackupController
 {
+    private const ALLOWED_TYPES = ['full', 'files', 'database'];
+
     public function run(Request $request): JsonResponse
     {
-        $allowedTypes = ['full', 'files', 'database'];
-        $type = $request->get('type', 'database');
-        $path = $request->get('path', config('backup.path'));
+        $type = $request->get('type', 'full');
 
-        if (!in_array($type, $allowedTypes, true)) {
+        // Never accept an arbitrary path from user input to prevent path traversal.
+        $path = config('backup.path');
+
+        if (!in_array($type, self::ALLOWED_TYPES, true)) {
             return response()->json(['message' => 'Invalid backup type.'], 422);
         }
 
         try {
             BackupManager::backup($type, $path);
+
             return response()->json(['message' => 'Backup completed!']);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return response()->json(['message' => 'Backup failed: ' . $e->getMessage()], 500);
         }
     }

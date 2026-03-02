@@ -19,7 +19,7 @@ class BackupCommand extends Command
         try {
             BackupManager::backup($type, $path);
             $this->info("Backup {$type} completed at {$path}");
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->error("Backup failed: {$e->getMessage()}");
             return self::FAILURE;
         }
